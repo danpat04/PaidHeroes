@@ -16,19 +16,7 @@ namespace PaidHeroes.Core
     {
         private readonly Dictionary<StatType, int> _baseStats;
         private readonly Dictionary<StatType, int> _addedStats;
-        private int _addedStatCount = -1;
-
-        public int AddedStatCount
-        {
-            get
-            {
-                if (_addedStatCount < 0)
-                {
-                    _addedStatCount = _addedStats.Select(x => x.Value).Sum();
-                }
-                return _addedStatCount;
-            }
-        }
+        public int AddedStatCount { get; private set; } = 0;
 
         public Stats()
         {
@@ -57,6 +45,7 @@ namespace PaidHeroes.Core
             {
                 _addedStats.Add(type, point);
             }
+            AddedStatCount = AddedStatCount + point;
         }
 
         public int Get(StatType type)

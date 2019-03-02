@@ -8,4 +8,9 @@ namespace PaidHeroes.Core
     {
         public StatPointOverflowError() { }
     }
+
+    class AbilityPointOverflowError : Exception
+    {
+        public AbilityPointOverflowError() { }
+    }
 }
