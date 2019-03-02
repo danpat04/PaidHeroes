@@ -43,5 +43,17 @@ namespace PaidHeroes.Core
             }
             _abilities.Add(ability, point);
         }
+
+        public Dictionary<StatType, int> GetStats()
+        {
+            var stats = new Dictionary<StatType, int>();
+            foreach (var stat in EnumUtil<StatType>.Iterate())
+            {
+                stats.Add(stat, _stats.Get(stat));
+            }
+
+            // TODO: get stat from passive ability
+            return stats;
+        }
     }
 }
