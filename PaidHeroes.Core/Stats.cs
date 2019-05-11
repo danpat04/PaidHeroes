@@ -18,6 +18,8 @@ namespace PaidHeroes.Core
         private readonly Dictionary<StatType, int> _addedStats;
         public int AddedStatCount { get; private set; } = 0;
 
+        public static readonly int MaxStat = 20;
+
         public Stats()
         {
             _baseStats = GenerateRandomBaseStats();
@@ -37,14 +39,17 @@ namespace PaidHeroes.Core
 
         public void Add(StatType type, int point)
         {
-            if (_addedStats.TryGetValue(type, out int prev))
+            if (!_addedStats.TryGetValue(type, out int prev))
             {
-                _addedStats[type] = point + prev;
+                prev = 0;
             }
-            else
+
+            if (prev + point > MaxStat)
             {
-                _addedStats.Add(type, point);
+                throw new StatOverflowError();
             }
+
+            _addedStats[type] = point + prev;
             AddedStatCount = AddedStatCount + point;
         }
 

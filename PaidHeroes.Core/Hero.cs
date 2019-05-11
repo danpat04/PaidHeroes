@@ -5,6 +5,7 @@ namespace PaidHeroes.Core
 {
     public class Hero
     {
+        public readonly Guid Id;
         public string Name { get; private set; }
         public int Level { get; private set; } = 1;
         private readonly Stats _stats;
@@ -15,6 +16,7 @@ namespace PaidHeroes.Core
 
         public Hero(string name, int level)
         {
+            Id = new Guid();
             Name = name;
             Level = level;
             _stats = new Stats();
@@ -44,12 +46,17 @@ namespace PaidHeroes.Core
             _abilities.Add(ability, point);
         }
 
+        public int GetStat(StatType statType)
+        {
+            return _stats.Get(statType);
+        }
+
         public Dictionary<StatType, int> GetStats()
         {
             var stats = new Dictionary<StatType, int>();
-            foreach (var stat in EnumUtil<StatType>.Iterate())
+            foreach (var statType in EnumUtil<StatType>.Iterate())
             {
-                stats.Add(stat, _stats.Get(stat));
+                stats.Add(statType, _stats.Get(statType));
             }
 
             // TODO: get stat from passive ability

@@ -15,6 +15,8 @@ namespace PaidHeroes.Core
         private readonly Hero _hero;
         private readonly Dictionary<StatusType, float> _status = new Dictionary<StatusType, float>();
 
+        public Guid Id => _hero.Id;
+
         public BattleStatus(Hero hero)
         {
             _hero = hero;
@@ -38,6 +40,12 @@ namespace PaidHeroes.Core
                 mp += i * 10;
             }
             _status.Add(StatusType.MP, mp);
+        }
+
+        public int GetStat(StatType statType)
+        {
+            // TODO: 상태 이상 등에 따라서 바뀌는 스탯을 적용해야 함
+            return _hero.GetStat(statType);
         }
     }
 }

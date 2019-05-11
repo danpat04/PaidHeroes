@@ -13,4 +13,9 @@ namespace PaidHeroes.Core
     {
         public AbilityPointOverflowError() { }
     }
+
+    class StatOverflowError : Exception
+    {
+        public StatOverflowError() { }
+    }
 }
